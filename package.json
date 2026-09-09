@@ -1,0 +1,12 @@
+{
+  "name": "catch-a-goose",
+  "version": "1.0.0",
+  "private": true,
+  "description": "An original, unlimited-play farm matching game.",
+  "scripts": {
+    "start": "node server.cjs",
+    "test": "node --test tests/core.test.cjs",
+    "build": "node build.cjs"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#edf5ef">
+  <title>抓个大鹅 · 田园三消</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="vendor/matter.min.js"></script>
+  <script defer src="vendor/lucide.min.js"></script>
+  <script defer src="art.js"></script>
+  <script defer src="core.js"></script>
+  <script defer src="game.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="抓个大鹅首页">
+      <img id="brand-goose" alt="" width="45" height="45">
+      <span>抓个大鹅<small>田 园 三 消</small></span>
+    </a>
+    <div class="top-tag"><span class="live-dot"></span> 随时来一局，好心情不限量</div>
+    <div class="header-actions">
+      <span class="unlimited"><i data-lucide="infinity"></i><span>无限畅玩</span></span>
+      <button class="icon-button" id="sound-btn" title="开启音效" aria-label="开启音效" aria-pressed="false"><i data-lucide="volume-x"></i></button>
+      <button class="icon-button" id="settings-btn" title="设置" aria-label="设置"><i data-lucide="settings-2"></i></button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="left-sidebar">
+      <div class="eyebrow"><span></span> GOOSE CLUB</div>
+      <h1>今日份小确幸</h1>
+      <p class="subtle side-subtitle">一口锅，一只鹅，一点快乐。</p>
+      <div class="mascot-scene">
+        <div class="mascot-caption">本局目标 <i data-lucide="sparkles"></i></div>
+        <img id="hero-goose" alt="戴绿色围巾的农场大鹅" width="236" height="218">
+        <span class="goose-name">田园小白</span>
+        <span class="goose-rarity">农场居民 · No. 01</span>
+      </div>
+      <div class="side-stats">
+        <div><i data-lucide="trophy"></i><span>累计抓鹅</span><strong id="total-wins">0<span> 只</span></strong></div>
+        <div><i data-lucide="flame"></i><span>当前连胜</span><strong id="win-streak">0<span> 局</span></strong></div>
+      </div>
+      <div class="collection-heading"><h2>我的鹅友</h2><span id="collection-count">0 / 6</span></div>
+      <div class="goose-collection" id="goose-collection"></div>
+      <div class="side-bottom"><i data-lucide="leaf"></i> 无广告 · 无体力限制</div>
+    </aside>
+
+    <section class="game-section" aria-label="游戏区域">
+      <div class="game-heading">
+        <div><div class="eyebrow">一起来，抓个大鹅</div><h2 id="scene-title">农场开锅啦<span>01</span></h2></div>
+        <button class="text-button replay" id="restart-btn"><i data-lucide="rotate-cw"></i>再来一锅</button>
+      </div>
+      <div class="scene-tabs" role="tablist" aria-label="场景">
+        <button class="scene-tab active" data-theme="farm" role="tab" aria-selected="true"><i data-lucide="sprout"></i>田园农场</button>
+        <button class="scene-tab" data-theme="garden" role="tab" aria-selected="false"><i data-lucide="carrot"></i>丰收菜园</button>
+        <button class="scene-tab" data-theme="orchard" role="tab" aria-selected="false"><i data-lucide="cherry"></i>甜蜜果园</button>
+      </div>
+      <div class="playfield">
+        <div class="round-status">
+          <span class="level-badge" id="level-badge">休闲局</span>
+          <span class="remaining"><strong id="remaining">0</strong> 件待收</span>
+          <span class="clock"><i data-lucide="timer"></i><span id="timer">00:00</span></span>
+        </div>
+        <div class="board-wrap">
+          <canvas id="board" width="560" height="450" tabindex="0" aria-label="物品锅。点击露出的物品收进暂存槽，三个相同物品自动消除。"></canvas>
+          <div class="board-label"><span></span> FARM FRESH <span></span></div>
+          <span class="combo" id="combo" aria-hidden="true">好事成三！</span>
+        </div>
+        <div class="progress-row"><span>收获进度</span><div class="progress-track"><div id="progress-fill"></div></div><strong id="progress-text">0%</strong></div>
+        <div class="tray-heading"><span><i data-lucide="shopping-basket"></i>收获篮</span><span id="tray-count">0 / 7</span></div>
+        <div class="tray" id="tray" aria-label="收获篮，最多七格"></div>
+        <div class="reserve-row" id="reserve-row" hidden><span>临时寄存</span><div id="reserve"></div></div>
+        <div class="game-tools">
+          <button class="tool" id="undo-btn" title="撤回上一步"><span><i data-lucide="undo-2"></i></span><b>撤回</b><small>不限次</small></button>
+          <button class="tool" id="stash-btn" title="将篮中最多三件物品寄存"><span><i data-lucide="package-open"></i></span><b>挪一挪</b><small>寄存 3 格</small></button>
+          <button class="tool" id="shake-btn" title="摇散锅中的物品"><span><i data-lucide="shuffle"></i></span><b>颠一颠</b><small>不限次</small></button>
+          <button class="tool" id="hint-btn" title="找出一组相同物品"><span><i data-lucide="lightbulb"></i></span><b>找一找</b><small>不限次</small></button>
+        </div>
+      </div>
+      <div class="bottom-line"><i data-lucide="heart"></i><span>慢慢来，快乐没有倒计时。</span><button id="help-btn" class="help-btn" title="玩法说明" aria-label="玩法说明"><i data-lucide="circle-help"></i></button></div>
+    </section>
+
+    <aside class="right-sidebar">
+      <div class="panel-heading"><h2>这一锅的好东西</h2><i data-lucide="wheat"></i></div>
+      <div class="inventory" id="inventory"></div>
+      <div class="difficulty-section">
+        <div class="panel-heading"><h2>今天想玩</h2><i data-lucide="sliders-horizontal"></i></div>
+        <div class="difficulty-list" role="group" aria-label="难度">
+          <button class="difficulty active" data-mode="easy" aria-pressed="true"><span class="difficulty-icon"><i data-lucide="coffee"></i></span><span><b>悠闲一锅</b><small>6 种好物 · 36 件</small></span><i data-lucide="check"></i></button>
+          <button class="difficulty" data-mode="normal" aria-pressed="false"><span class="difficulty-icon"><i data-lucide="sun"></i></span><span><b>有点上头</b><small>9 种好物 · 72 件</small></span><i data-lucide="check"></i></button>
+          <button class="difficulty" data-mode="hard" aria-pressed="false"><span class="difficulty-icon"><i data-lucide="zap"></i></span><span><b>大鹅挑战</b><small>12 种好物 · 108 件</small></span><i data-lucide="check"></i></button>
+        </div>
+      </div>
+      <div class="record"><i data-lucide="medal"></i><div><span>本难度最快收获</span><strong id="best-time">等你来创造</strong></div></div>
+      <button class="mobile-difficulty" id="mobile-difficulty">难度设置<i data-lucide="chevron-right"></i></button>
+    </aside>
+  </main>
+  <footer class="footer"><span>抓个大鹅 · 原创田园消除</span><span>把小日子，过得鹅鹅有声。</span></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog id="modal" aria-labelledby="modal-title">
+    <button class="icon-button modal-close" id="modal-close" aria-label="关闭"><i data-lucide="x"></i></button>
+    <div id="modal-art"></div><h2 id="modal-title"></h2><div id="modal-body"></div><div id="modal-actions"></div>
+  </dialog>
+</body>
+</html>

@@ -1,0 +1,38 @@
+name: Publish Game to GitHub Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test rules
+        run: node --test tests/core.test.cjs
+      - name: Prepare static site
+        run: |
+          mkdir -p _site/assets _site/vendor
+          cp index.html style.css game.js core.js art.js _site/
+          cp assets/favicon.svg _site/assets/
+          cp vendor/* _site/vendor/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
