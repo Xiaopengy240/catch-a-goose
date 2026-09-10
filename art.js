@@ -1,24 +1,19 @@
-/* Original vector game art. The same sprites are used in the canvas and inventory. */
-(function (root) {
-  const wrap = (body) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6">${body}</g></svg>`;
-  const art = {
-    tomato: ['番茄', '#e6755f', `<path d="M49 27C21 16 9 45 18 68s52 27 66 0S79 19 49 27Z" fill="#e9876a" stroke="#b7644c"/><path d="M30 35c-9 5-12 13-11 22" fill="none" stroke="#f9bd98" stroke-width="6"/><path d="m50 32-19-9 12 0 2-13 8 14 14-9-6 15 15 6-19 1-10 11Z" fill="#75935b" stroke="#5b7946"/><path d="m51 28 5-15" stroke="#638144"/>`],
-    carrot: ['胡萝卜', '#e7a760', `<path d="M39 31c-10 9-22 53-14 57 9 4 46-27 49-42 3-15-21-28-35-15Z" fill="#edb06d" stroke="#bf8650"/><path d="m38 43 12 7m-18 7 10 5m10-24 9 5m-32 30 6 3" stroke="#d29154"/><path d="M52 28C33 6 47 4 58 25 58 0 74 4 64 28 88 7 95 21 71 35" fill="#8bac64" stroke="#65874b"/><path d="M41 40c-5 10-8 20-10 29" stroke="#f8cd91" stroke-width="4"/>`],
-    corn: ['甜玉米', '#efcb68', `<path d="M46 15C64 3 85 26 73 53L44 83 24 62Z" fill="#f1d47c" stroke="#bca654"/><path d="m43 25 26 17m-30-7 25 17m-30-7 21 14m-25-3 17 10M56 17 36 60m29-35L45 70" stroke="#d7b85b" stroke-width="2"/><path d="M17 40c2 29 8 46 23 46 21-1 33-14 44-36C68 58 46 74 40 78 37 60 29 48 17 40Z" fill="#98ac62" stroke="#718b4a"/><path d="M29 56c4 10 7 20 10 28m2-3 28-20" fill="none" stroke="#c0ca86" stroke-width="3"/>`],
-    egg: ['鲜鸡蛋', '#efdeae', `<path d="M51 12C38 11 18 44 20 64c2 31 60 32 62 0 1-22-17-51-31-52Z" fill="#f3e5be" stroke="#c7b893"/><path d="M38 28C29 40 25 50 26 60" stroke="#fff7db" stroke-width="7" fill="none"/><path d="M31 78c11 8 28 8 40-1" fill="none" stroke="#e6d5a8" stroke-width="4"/>`],
-    mushroom: ['小蘑菇', '#ba8a76', `<path d="m41 46-8 35c-2 13 34 13 33 0l-8-35" fill="#f5e7c8" stroke="#b7a588"/><path d="M47 57c-4 10-5 18-4 27" fill="none" stroke="#fff5dc" stroke-width="5"/><path d="M14 48C17 3 80-5 88 48c3 18-80 22-74 0Z" fill="#b68b79" stroke="#8f6c5b"/><path d="M22 37c8-18 27-24 43-14" stroke="#d4ac96" stroke-width="6" fill="none"/><ellipse cx="33" cy="41" rx="7" ry="5" fill="#ead8bd" stroke="none"/><ellipse cx="65" cy="34" rx="8" ry="6" fill="#ead8bd" stroke="none"/><ellipse cx="55" cy="52" rx="5" ry="4" fill="#ead8bd" stroke="none"/>`],
-    goose: ['大白鹅', '#e5e8d3', `<path d="m29 80-9 8h19m21-8-4 8h16" fill="#ecb163" stroke="#b68c52"/><path d="M15 62C12 45 37 47 48 39V23c-2-21 29-23 30-3v35c0 34-58 37-63 7Z" fill="#fffdf0" stroke="#a4ad8b"/><path d="M25 61c2 17 31 15 33-2-14 10-23 10-33 2Z" fill="#ecebd7" stroke="#c2c6a9"/><path d="m77 23 16 7-17 7" fill="#e8b263" stroke="#be954f"/><circle cx="69" cy="20" r="2.4" fill="#405844" stroke="none"/><path d="m48 39 29 5-2 9-29-6Z" fill="#8aae81" stroke="#71906a"/><path d="m58 49 4 15 10-2-7-13" fill="#8aae81" stroke="#71906a"/>`],
-    radish: ['白萝卜', '#e4e7ce', `<path d="M50 27c-20-6-34 8-27 28s17 28 22 33l11-14c34-26 22-47-6-47Z" fill="#f0edda" stroke="#adb79b"/><path d="m46 84-5 9m-8-43 9 2m9 13 9-5" fill="none" stroke="#c8ceb2"/><path d="M43 28C20 16 29 1 45 22 38-6 59-1 54 25 71 0 83 14 58 32" fill="#8aa96b" stroke="#668e51"/><path d="M30 38c-4 12 2 26 8 32" stroke="#fffdf1" stroke-width="5" fill="none"/>`],
-    pumpkin: ['小南瓜', '#dba064', `<path d="M50 27C8 6 7 77 32 85c13 5 29 5 42-2 28-15 17-71-24-56Z" fill="#ddaa6c" stroke="#b4874b"/><ellipse cx="50" cy="57" rx="17" ry="31" fill="#edbd7c" stroke="#c59658"/><path d="M30 29c-16 13-17 42 0 54M70 29c16 14 14 43 1 52" fill="none" stroke="#c69455"/><path d="m45 29 2-17 12-3-3 21Z" fill="#83906a" stroke="#687650"/><path d="M45 42c-4 12-4 23-1 31" fill="none" stroke="#f6d296" stroke-width="4"/>`],
-    pear: ['香雪梨', '#c2cc7b', `<path d="M37 33c1-23 29-23 29 1 1 14 24 17 21 37-4 26-69 27-72 0-3-18 19-22 22-38Z" fill="#c7d58b" stroke="#94a35f"/><path d="M50 20 55 7" stroke="#927650" stroke-width="4"/><path d="M55 13C67-2 77 8 78 11c-7 6-14 9-23 2Z" fill="#8aac6e" stroke="#729556"/><path d="M33 46c-9 11-14 17-9 27" fill="none" stroke="#e4ecb9" stroke-width="5"/><path d="m59 64 .1 .1m-17 10 .1 .1m24-1 .1 .1m-16-17 .1 .1" stroke="#a4b06c" stroke-width="3"/>`],
-    strawberry: ['小草莓', '#e58986', `<path d="M22 29c-21 25 14 58 26 63 13 4 54-43 32-61C67 21 38 23 22 29Z" fill="#e69c94" stroke="#bd756e"/><path d="m31 25-6-10 21 9 5-16 9 17 17-10-6 15-17 9Z" fill="#90a66f" stroke="#6c8954"/><path d="m29 43-2 4m20-6-1 4m20-2-2 4M37 58l-1 4m20-4-2 4m-6 12-2 4" stroke="#ffddad" stroke-width="3"/><path d="M23 39c-3 8 0 17 5 24" stroke="#f4c1ae" stroke-width="4" fill="none"/>`],
-    eggplant: ['紫茄子', '#a099b7', `<path d="M60 23c-15 6-11 34-35 40C6 68 9 93 37 88 65 84 82 48 77 32Z" fill="#aaa1bf" stroke="#80778f"/><path d="M22 76c18 4 35-18 40-34" stroke="#c9bfd8" stroke-width="5" fill="none"/><path d="m58 28-7-12 14 3 7-12 1 15 16 1-12 9-7 10Z" fill="#8aa371" stroke="#6b8b59"/>`],
-    bread: ['小面包', '#d3ad78', `<path d="M23 24c-22 14-15 38-4 40l1 20h58l1-20c21-10 13-40-8-44-18-4-34-5-48 4Z" fill="#d4ad7c" stroke="#ab875b"/><path d="M30 31C9 43 26 57 30 57v17h38V56c20-12 7-26-7-28-12-2-23-1-31 3Z" fill="#f2ddb0" stroke="#c19d6c"/><path d="M33 40c5-7 17-7 25-4" fill="none" stroke="#fff0ce" stroke-width="5"/>`]
+/* Original model catalogue. PNG previews are baked from the same 3D geometry. */
+(function(root){
+  const names={
+    goose:'大白鹅',tomato:'熟番茄',corn:'甜玉米',egg:'鲜鸡蛋',carrot:'胡萝卜',mushroom:'白蘑菇',
+    radish:'白萝卜',pumpkin:'小南瓜',pear:'香雪梨',strawberry:'草莓',eggplant:'紫茄子',bread:'乡村面包',
+    broccoli:'西兰花',cucumber:'黄瓜',pepper:'甜椒',potato:'土豆',apple:'红苹果',orange:'甜橙',
+    banana:'香蕉',kiwi:'猕猴桃',watermelon:'西瓜',grape:'葡萄',peach:'蜜桃',lemon:'柠檬',
+    avocado:'牛油果',croissant:'牛角包',sushi:'寿司卷',salmon:'三文鱼',donut:'甜甜圈',pretzel:'碱水结',
+    cookie:'曲奇',baguette:'法棍',cupcake:'纸杯蛋糕',waffle:'华夫饼',toast:'吐司',chocolate:'巧克力',
+    sandwich:'三明治',milk:'鲜牛奶',sausage:'香肠',shrimp:'鲜虾',scallop:'扇贝',mussel:'青口贝',
+    riceball:'饭团',juice:'果汁'
   };
-  const items = Object.fromEntries(Object.entries(art).map(([id,[name,color,body]]) => [id,{id,name,color,svg:wrap(body)}]));
-  function goose(scarf='#81a380', hat=true) {
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 230"><g stroke-linecap="round" stroke-linejoin="round"><ellipse cx="126" cy="207" rx="83" ry="11" fill="#c9d6b6" opacity=".6"/><path d="m92 191-12 17h25m46-19-5 19h24" fill="#e5b371" stroke="#b19663" stroke-width="3"/><path d="M50 160c-5-30 41-26 76-52V62c-4-35 49-42 53-10l-1 71c-1 78-115 87-128 37Z" fill="#fffcE9" stroke="#a5b28e" stroke-width="3"/><path d="M73 151c-6 34 58 35 69 1-29 16-43 17-69-1Z" fill="#eeecd4" stroke="#cad0ad" stroke-width="2"/><path d="m178 63 34 12-34 13" fill="#e3b16b" stroke="#bd985c" stroke-width="2.5"/><circle cx="163" cy="60" r="3.1" fill="#4b5940"/><ellipse cx="168" cy="75" rx="7" ry="4" fill="#ecc3a0" opacity=".7"/><path d="m127 101 50 9-1 16-49-9Z" fill="${scarf}" stroke="#6b8b67" stroke-width="2"/><path d="m150 121 9 30 17-6-13-27" fill="${scarf}" stroke="#6b8b67" stroke-width="2"/>${hat?'<path d="m120 45 65-4c13-2 17 7 4 10l-69 6c-17 0-19-10 0-12Z" fill="#d1bd86" stroke="#a99c6b" stroke-width="2"/><path d="m130 44 1-23c3-9 34-11 39-2l10 24" fill="#e2d09b" stroke="#a99c6b" stroke-width="2"/><path d="m133 34 39-3" stroke="#9dad7e" stroke-width="8"/>':''}<path d="m40 192-7-13m7 13 7-10m151 18 3-17m-3 17 8-8" fill="none" stroke="#9bb18a" stroke-width="3"/><path d="m35 104 4-7 4 7-4 7Zm171 26 3-6 3 6-3 6Z" fill="#cfb56e"/></g></svg>`;
-  }
-  const uri = svg => 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
-  root.GooseArt = {items, goose, uri};
+  const image=id=>root.GooseAssetData?.[`assets/items/${id}.png`]||`assets/items/${id}.png?v=20260910`;
+  root.GooseArt={
+    items:Object.fromEntries(Object.entries(names).map(([id,name])=>[id,{id,name}])),
+    image,
+    goose:(index=0)=>image('goose-'+index)
+  };
 })(globalThis);

@@ -10,11 +10,16 @@
     hard: {name:'大鹅挑战', badge:'挑战局', kinds:12, groups:36}
   };
   const THEMES = {
-    farm: {name:'农场开锅啦', order:['goose','tomato','corn','egg','carrot','mushroom','radish','pumpkin','pear','strawberry','eggplant','bread']},
-    garden: {name:'菜园大丰收', order:['goose','carrot','radish','pumpkin','eggplant','corn','tomato','mushroom','pear','egg','strawberry','bread']},
-    orchard: {name:'果园甜蜜蜜', order:['goose','pear','strawberry','tomato','pumpkin','bread','corn','egg','mushroom','carrot','radish','eggplant']}
+    farm: {name:'农场开锅啦',label:'田园农场',icon:'sprout',color:'#467954', order:['goose','tomato','corn','egg','carrot','mushroom','radish','pumpkin','pear','strawberry','eggplant','bread']},
+    garden: {name:'菜园大丰收',label:'丰收菜园',icon:'carrot',color:'#4a8070', order:['goose','carrot','radish','pumpkin','eggplant','corn','broccoli','cucumber','pepper','potato','tomato','mushroom']},
+    orchard: {name:'果园甜蜜蜜',label:'缤纷果园',icon:'cherry',color:'#b96958', order:['goose','apple','orange','banana','pear','strawberry','kiwi','watermelon','grape','peach','lemon','avocado']},
+    lightmeal: {name:'轻食好时光',label:'清新轻食',icon:'salad',color:'#507da3', order:['goose','croissant','avocado','sushi','pepper','kiwi','broccoli','tomato','salmon','egg','cucumber','lemon']},
+    bakery: {name:'烘焙刚出炉',label:'幸福烘焙',icon:'croissant',color:'#a96846', order:['goose','croissant','bread','donut','pretzel','cookie','baguette','cupcake','waffle','toast','chocolate','sandwich']},
+    breakfast: {name:'早餐准备好',label:'元气早餐',icon:'coffee',color:'#bd9052', order:['goose','milk','toast','sausage','egg','sandwich','waffle','banana','croissant','tomato','bread','donut']},
+    coast: {name:'海边鲜味集',label:'海边鲜味',icon:'shell',color:'#407f91', order:['goose','shrimp','salmon','sushi','scallop','mussel','lemon','avocado','cucumber','pepper','riceball','egg']},
+    picnic: {name:'周末野餐日',label:'周末野餐',icon:'sandwich',color:'#a7607e', order:['goose','sandwich','watermelon','grape','cookie','juice','apple','chocolate','donut','strawberry','pretzel','banana']}
   };
-  const ALL_TYPES = THEMES.farm.order;
+  const ALL_TYPES = [...new Set(Object.values(THEMES).flatMap(theme=>theme.order))];
   function random(seed) {
     let a = seed >>> 0;
     return () => {

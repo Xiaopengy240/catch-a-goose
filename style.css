@@ -7,3 +7,45 @@
 @media(max-width:740px){.topbar{height:76px;padding:0 20px}.top-tag{display:none}.brand{font-size:22px}.brand img{width:38px;height:38px}.brand small{font-size:8px}.header-actions{gap:3px}.unlimited{font-size:10px;margin-right:5px}.unlimited svg{width:17px}.layout{display:block;max-width:550px;margin:22px auto 0;padding:0 16px}.left-sidebar{display:none}.game-heading{margin-bottom:16px}.game-heading h2{font-size:22px}.game-heading .eyebrow{font-size:9px}.scene-tabs{margin-bottom:12px}.scene-tab{height:35px;font-size:11px}.playfield{padding:15px 17px 19px}.board-wrap{margin-top:0}.progress-row{margin:10px 0 15px}.tray{min-height:0;padding:6px;gap:4px}.game-tools{margin-top:19px;gap:5px}.tool>span{width:43px;height:40px}.tool b{font-size:10px}.tool small{font-size:8px}.bottom-line{margin-top:15px}.right-sidebar{display:block;margin-top:24px;padding:0 6px}.right-sidebar>.panel-heading,.right-sidebar>.inventory,.right-sidebar>.record{display:none}.difficulty-section{margin:0}.difficulty-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.difficulty{min-height:55px;justify-content:center;gap:0;padding:10px 4px}.difficulty-icon,.difficulty>svg{display:none}.difficulty>span:nth-child(2){text-align:center;gap:4px}.difficulty b{font-size:10px}.difficulty small{font-size:8px}.footer{margin:23px 20px 0;padding:16px 0 22px;font-size:8px;gap:10px}.footer span:last-child{display:none}.toast{bottom:15px;font-size:11px;width:max-content}.clock,.remaining{font-size:10px}.remaining strong{font-size:14px}}
 @media(max-width:370px){.layout{padding:0 10px;margin-top:16px}.playfield{padding:12px 12px 16px}.topbar{padding:0 12px}.header-actions .unlimited span{display:none}.game-heading h2{font-size:20px}.scene-tab{font-size:10px;gap:5px}.game-tools{margin-top:15px}.tool>span{width:39px;height:37px}.bottom-line{font-size:9px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+
+/* The food scene is an unframed tabletop; only the basket remains a framed tool. */
+:root{--scene-accent:#467954;--bg:#f4f6f4;--ink:#35433e}
+.scene-tabs{grid-template-columns:repeat(4,minmax(0,1fr));background:transparent;padding:0;gap:5px;margin-bottom:15px}
+.scene-tab{height:35px;gap:5px;font-size:11px;background:#e9eeea;border:1px solid transparent;color:#768279}
+.scene-tab.active{color:var(--scene-accent);border-color:var(--scene-accent);background:#fff;box-shadow:none}
+.scene-tab svg{width:15px;height:15px}
+.playfield{background:transparent;border:0;box-shadow:none;padding:0}
+.round-status{padding:0 5px 10px}
+.board-wrap{max-width:500px;margin:0 auto;isolation:isolate;background:#e6dfd1;overflow:hidden}
+#effects{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+.board-loading{position:absolute;inset:0;z-index:4;display:flex;gap:9px;align-items:center;justify-content:center;background:#f0f0e7e8;font-size:12px;color:#738169}
+.board-loading[hidden]{display:none}
+.loading-spinner{width:18px;height:18px;border:2px solid #c9d1bf;border-top-color:#739064;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.combo{z-index:3;font-size:24px}
+.progress-row{margin:14px 0}
+.progress-track>div{background:var(--scene-accent)}
+.tray{background:#e2e7e4;padding:7px;border:1px solid #d3dcd5;box-shadow:none}
+.slot{background:#fff;border-color:#d2dcd3}
+.slot>img{animation:none;object-fit:contain;padding:1px}
+.slot>span{color:#b8c4bb}
+.inventory-item>div{background:#e9ece7;padding:1px}
+.inventory-item>span{font-size:11px;color:#7c877c}
+.inventory-item strong{z-index:1;color:#789072;background:#edf1e9cf;padding:1px 3px;border-radius:3px}
+.mascot-scene{background:#e7ece5}
+.mascot-scene>img{height:210px;margin:0 0 1px}
+.collection-item{padding:2px;background:#e9ece7}
+.game-tools{margin-top:18px}
+.bottom-line{margin-top:16px}
+.footer{margin-top:25px}
+.reserve-row button[hidden]{display:none}
+.accessibility-items button{min-height:38px}
+@media(max-width:740px){
+  .topbar{height:68px}.layout{margin-top:15px}.game-heading{margin-bottom:13px}
+  .scene-tabs{gap:4px;margin-bottom:12px}.scene-tab{font-size:10px;height:33px;gap:3px}.scene-tab svg{width:13px;height:13px}
+  .board-wrap{width:100%;max-width:none}.round-status{padding:0 2px 9px}.playfield{padding:0}
+  .game-tools{margin-top:14px}.tool>span{width:43px;height:40px}.tool b{font-size:11px}.tool small{font-size:9px}
+  .tray{padding:6px;gap:4px}.tray-heading{font-size:11px}.bottom-line{font-size:10px}
+  .progress-row{margin:11px 0}.right-sidebar{margin-top:20px}.footer{margin-top:20px}
+}
+@media(max-width:370px){.scene-tab{font-size:9px}.scene-tab svg{display:none}.topbar{height:64px}.game-heading h2{font-size:20px}}

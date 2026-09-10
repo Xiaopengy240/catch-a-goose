@@ -85,3 +85,22 @@ test('5000 random actions preserve counts, capacity, and a valid save',()=>{
     assert(C.validate(s),`Invalid at action ${i}`);
   }
 });
+test('all eight themes have twelve valid types and can finish in every mode',()=>{
+  assert.equal(Object.keys(C.THEMES).length,8);
+  for(const [theme,spec] of Object.entries(C.THEMES)){
+    assert.equal(spec.order.length,12);assert.equal(new Set(spec.order).size,12);
+    for(const mode of Object.keys(C.MODES)){
+      const s=C.newGame(mode,theme,204);
+      for(const type of spec.order)for(const id of ids(s,type))C.pick(s,id);
+      assert.equal(s.status,'won',`${theme}/${mode}`);assert(C.validate(s));
+    }
+  }
+});
+test('version-one orchard progress remains valid after its catalogue changes',()=>{
+  const s=C.newGame('easy','farm',62);s.theme='orchard';
+  const oldTypes=['goose','pear','strawberry','tomato','pumpkin','bread'];
+  s.board=oldTypes.flatMap((type,i)=>Array.from({length:6},(_,j)=>({id:i*6+j,type})));
+  C.pick(s,0);C.pick(s,1);
+  assert(C.validate(s));const restored=copy(s);assert(C.validate(restored));assert.equal(restored.tray.length,2);
+  C.pick(restored,2);assert.equal(restored.matched,3);assert(C.undo(restored));assert.equal(restored.tray.length,2);
+});
